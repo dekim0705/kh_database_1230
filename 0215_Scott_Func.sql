@@ -298,18 +298,34 @@ FROM EMP;
         
 /* 종합 실습문제 */
 -- 노션에 있는 4개의 문제
--- 1.
+-- 1.ENAME이 다섯글자인 사원, 사원번호 앞 두자리만 표시하고 나머지는 별(*)표처리, 
 SELECT EMPNO, 
     RPAD(SUBSTR(EMPNO, 1, 2), LENGTH(EMPNO), '*') AS MASKING_EMPNO, 
     ENAME,
     RPAD(SUBSTR(ENAME,1, 1), LENGTH(ENAME), '*') AS MAKING_ENAME
     FROM EMP
     WHERE LENGTH(ENAME) = 5;
+    
+-- 1번 강사님 답     
+SELECT EMPNO, 
+    RPAD(SUBSTR(EMPNO, 1, 2), 4, '*') AS MASKING_EMPNO, 
+    ENAME,
+    RPAD(SUBSTR(ENAME,1, 1), 5, '*') AS MAKING_ENAME -- 이름들이 어차피 다섯자리라서 LENGTH(ENAME) 할 필요 X
+    FROM EMP
+    WHERE LENGTH(ENAME) = 5
+    ORDER BY EMPNO;
+    
 
--- 2.
+-- 2.  
 SELECT EMPNO, ENAME, SAL, 
         ROUND(SAL/21.5, 2) AS DAY_PAY,
         ROUND(SAL/21.5/8, 1) AS TIME_PAY
+        FROM EMP;
+        
+-- 2번 강사님 답  *****    
+SELECT EMPNO, ENAME, SAL, 
+        TRUNC(SAL/21.5, 2) AS DAY_PAY, -- DAY_PAY는 소수점 세자리에부터 버리고(TRUNC)
+        ROUND(SAL/21.5/8, 1) AS TIME_PAY -- TIME_PAY는 둘째 자리에서 반올림 (ROUND)
         FROM EMP;
         
 -- 3. 
@@ -320,6 +336,12 @@ SELECT EMPNO, ENAME, HIREDATE,
     WHEN COMM IS NOT NULL THEN TO_CHAR(COMM)
     END AS COMM    
 FROM EMP;
+
+-- 3번 강사님 답
+SELECT EMPNO, ENAME, HIREDATE,
+    TO_CHAR(NEXT_DAY(ADD_MONTHS(HIREDATE, 3), '월요일'), 'YYYY-MM-DD') AS R_JOB, -- 'YYYY-MM-DD' 형식으로! 
+    NVL(TO_CHAR(COMM), 'N/A') AS COMM
+FROM EMP;    
 
 -- 4.
 SELECT EMPNO, ENAME, MGR, 
@@ -342,17 +364,28 @@ SELECT SYSDATE FROM DUAL;
 SELECT EMPNO, ENAME, TO_CHAR(SAL, '999') AS SAL
     FROM EMP
     ORDER BY SAL DESC;
+-- 2번 강사님 답 : 급여 100단위까지의 값은 둘째 자리에서 반올림 해야한다는 뜻
+SELECT EMPNO, ENAME, ROUND(SAL, -2)
+    FROM EMP
+    ORDER BY 3 DESC;
     
 
 -- 3. 사원번호가 홀수인 사원들을 조회
 SELECT *
     FROM EMP
     WHERE MOD(EMPNO, 2) != 0;
+-- 3번 강사님 답
+SELECT *
+    FROM EMP
+    WHERE MOD(EMPNO, 2) = 1;
 
     
 -- 4. 사원명, 입사일 조회( 단, 입사일은 년도와 월을 분리 추출해서 출력)
 SELECT ENAME, TO_CHAR(HIREDATE, 'YYYY') AS YEAR, TO_CHAR(HIREDATE, 'MM') AS MONTH
 FROM EMP;
+-- 4번 강사님 답
+SELECT ENAME, EXTRACT (YEAR FROM HIREDATE) AS 입사년도, EXTRACT(MONTH FROM HIREDATE) AS 입사월
+    FROM EMP;
 
 
 -- 5. 9월에 입사한 직원의 정보 조회
@@ -379,13 +412,20 @@ SELECT *
 -- 9. 사번, 사원명, 입사일, 입사일로부터 40년 되는 날짜 조회
 SELECT EMPNO, ENAME, HIREDATE, ADD_MONTHS (HIREDATE, 480) AS 입사일로부터40년
     FROM EMP;
-   
+-- 9번 강사닙 답 
+SELECT EMPNO, ENAME, HIREDATE, ADD_MONTHS(HIREDATE, 40*12)
+    FROM EMP;
 
 -- 10. 입사일로부터 38년 이상 근무한 직원의 정보 조회
 SELECT *
     FROM EMP
     WHERE TRUNC(MONTHS_BETWEEN(SYSDATE, HIREDATE)) >= 38; 
+-- 10번 강사님 답
+SELECT *
+    FROM EMP
+    WHERE MONTHS_BETWEEN(SYSDATE, HIREDATE)/12 >= 38;
     
     
 -- 11. 오늘 날짜에서 년도만 추출
 SELECT TO_CHAR(SYSDATE, 'YYYY') AS THISYEAR FROM DUAL;
+SELECT EXTRACT(YEAR FROM SYSDATE) AS THISYEAR FROM DUAL;
