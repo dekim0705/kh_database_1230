@@ -1,18 +1,18 @@
-/* ´ÙÁßÇà ÇÕ¼ö¿Í µ¥ÀÌÅÍ ±×·ìÈ­ :
-   ´ÙÁßÇà ÇÔ¼ö : ¿©·¯ Çà¿¡ ´ëÇØ ÇÔ¼ö°¡ Àû¿ëµÇ¾î ÇÏ³ªÀÇ °á°ú¸¦ ³ªÅ¸³»´Â ÇÔ¼ö ÀÔ´Ï´Ù.
-              : = Áý°è ÇÔ¼ö  
+/* ë‹¤ì¤‘í–‰ í•©ìˆ˜ì™€ ë°ì´í„° ê·¸ë£¹í™” :
+   ë‹¤ì¤‘í–‰ í•¨ìˆ˜ : ì—¬ëŸ¬ í–‰ì— ëŒ€í•´ í•¨ìˆ˜ê°€ ì ìš©ë˜ì–´ í•˜ë‚˜ì˜ ê²°ê³¼ë¥¼ ë‚˜íƒ€ë‚´ëŠ” í•¨ìˆ˜ ìž…ë‹ˆë‹¤.
+              : = ì§‘ê³„ í•¨ìˆ˜  
 */
 
 SELECT* FROM emp;
-SELECT ename, sal FROM emp; -- ÀÌ¸§°ú ±Þ¿©
-SELECT SUM(sal) FROM emp; -- SUMÀº °á°ú°¡ ÇÏ³ª¸¸ ³ª¿È 
-SELECT SUM(sal), ename FROM emp; -- ¿¡·¯. SUMÀº 1°³, enameÀº 12°³
+SELECT ename, sal FROM emp; -- ì´ë¦„ê³¼ ê¸‰ì—¬
+SELECT SUM(sal) FROM emp; -- SUMì€ ê²°ê³¼ê°€ í•˜ë‚˜ë§Œ ë‚˜ì˜´ 
+SELECT SUM(sal), ename FROM emp; -- ì—ëŸ¬. SUMì€ 1ê°œ, enameì€ 12ê°œ
 
 SELECT deptno, SUM(sal)
-    FROM emp; -- ¿¡·¯
+    FROM emp; -- ì—ëŸ¬
 SELECT deptno, SUM(sal)
     FROM emp
-    GROUP BY deptno; -- deptno´ÜÀ§·Î °á°ú Ãâ·Â 
+    GROUP BY deptno; -- deptnoë‹¨ìœ„ë¡œ ê²°ê³¼ ì¶œë ¥ 
     
 SELECT deptno, AVG(sal)
     FROM emp
@@ -30,62 +30,62 @@ SELECT deptno, MIN(sal)
     FROM emp
     GROUP BY deptno;    
     
-/* SUM : ÇÕ°è¸¦ ±¸ÇÏ´Â ÇÔ¼ö 
-       : SUMÀÇ ¿É¼Ç 1)DISTINCT : Áßº¹ Á¦°Å, 2)ALL : »ç¿ëÇÏÁö ¾Ê¾Æµµ ±âº»ÀûÀ¸·Î ALL Æ¯¼ºÀ» °¡Áü 
+/* SUM : í•©ê³„ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜ 
+       : SUMì˜ ì˜µì…˜ 1)DISTINCT : ì¤‘ë³µ ì œê±°, 2)ALL : ì‚¬ìš©í•˜ì§€ ì•Šì•„ë„ ê¸°ë³¸ì ìœ¼ë¡œ ALL íŠ¹ì„±ì„ ê°€ì§ 
 */
 SELECT SAL  FROM EMP;
-SELECT SUM(DISTINCT SAL) AS Áßº¹Á¦°Å, SUM(ALL SAL) AS ÀüºÎ, SUM(SAL) AS ±âº»
+SELECT SUM(DISTINCT SAL) AS ì¤‘ë³µì œê±°, SUM(ALL SAL) AS ì „ë¶€, SUM(SAL) AS ê¸°ë³¸
     FROM EMP;               
     
 SELECT SUM(SAL), SUM(COMM) 
     FROM EMP;   
     
-SELECT COUNT(*) FROM EMP;  -- ÃÑ ¸î¸íÀÎÁö È®ÀÎ
-SELECT COUNT(COMM) FROM EMP; -- COMMÀÌ NULLÀÌ ¾Æ´Ñ »ç¿øÀÇ ¼ö (NULL Á¦¿Ü!)
+SELECT COUNT(*) FROM EMP;  -- ì´ ëª‡ëª…ì¸ì§€ í™•ì¸
+SELECT COUNT(COMM) FROM EMP; -- COMMì´ NULLì´ ì•„ë‹Œ ì‚¬ì›ì˜ ìˆ˜ (NULL ì œì™¸!)
 
 SELECT COUNT(COMM)
     FROM EMP
     WHERE COMM IS NOT NULL;
     
--- ºÎ¼­ ¹øÈ£°¡ 20ÀÎ »ç¿øÀÇ ÀÔ»çÀÏ Áß °¡Àå ÃÖ±Ù ÀÔ»çÀÏ
+-- ë¶€ì„œ ë²ˆí˜¸ê°€ 20ì¸ ì‚¬ì›ì˜ ìž…ì‚¬ì¼ ì¤‘ ê°€ìž¥ ìµœê·¼ ìž…ì‚¬ì¼
 SELECT MAX(HIREDATE)
     FROM EMP
     WHERE DEPTNO = 20;
     
-/* GROUP BYÀý : ÇÏ³ªÀÇ °á°ú¸¦ Æ¯Á¤ ¿­À» ¹­¾î¼­ Ãâ·ÂÇÏ´Â °ÍÀ» '±×·ìÈ­'ÇÑ´Ù°í ÇÔ. ÀÌ¶§ Ãâ·ÂÇØ¾ß ÇÒ ´ë»ó¿­ ÁöÁ¤À» GROUP BY ·Î ¼öÇà */
+/* GROUP BYì ˆ : í•˜ë‚˜ì˜ ê²°ê³¼ë¥¼ íŠ¹ì • ì—´ì„ ë¬¶ì–´ì„œ ì¶œë ¥í•˜ëŠ” ê²ƒì„ 'ê·¸ë£¹í™”'í•œë‹¤ê³  í•¨. ì´ë•Œ ì¶œë ¥í•´ì•¼ í•  ëŒ€ìƒì—´ ì§€ì •ì„ GROUP BY ë¡œ ìˆ˜í–‰ */
 
--- ºÎ¼­º° ±Þ¿© Æò±Õ (GROUP BYÀý »ç¿ë)
+-- ë¶€ì„œë³„ ê¸‰ì—¬ í‰ê·  (GROUP BYì ˆ ì‚¬ìš©)
 SELECT TRUNC(AVG(SAL)), DEPTNO
     FROM EMP
-    GROUP BY DEPTNO; -- ±×·ìÀ¸·Î ¹­¾î¾ß Ãâ·ÂÀÌ µÊ 
--- ºÎ¼­º° Æò±Õ ±Þ¿© (WHEREÀý »ç¿ë)
+    GROUP BY DEPTNO; -- ê·¸ë£¹ìœ¼ë¡œ ë¬¶ì–´ì•¼ ì¶œë ¥ì´ ë¨ 
+-- ë¶€ì„œë³„ í‰ê·  ê¸‰ì—¬ (WHEREì ˆ ì‚¬ìš©)
 SELECT TRUNC(AVG(SAL)) FROM EMP WHERE DEPTNO = 10;
 SELECT TRUNC(AVG(SAL)) FROM EMP WHERE DEPTNO = 20;
 SELECT TRUNC(AVG(SAL)) FROM EMP WHERE DEPTNO = 30;
 
--- ºÎ¼­ ¹øÈ£ ¹× Á÷Ã¥º° Æò±Õ ±Þ¿©·Î Á¤·Ä
+-- ë¶€ì„œ ë²ˆí˜¸ ë° ì§ì±…ë³„ í‰ê·  ê¸‰ì—¬ë¡œ ì •ë ¬
 SELECT DEPTNO, JOB, TRUNC(AVG(SAL))
     FROM EMP
     GROUP BY DEPTNO, JOB
     ORDER BY DEPTNO, JOB;
 
--- ºÎ¼­ ¹øÈ£º° Æò±Õ Ãß°¡ ¼ö´çÀ» Ãâ·Â
+-- ë¶€ì„œ ë²ˆí˜¸ë³„ í‰ê·  ì¶”ê°€ ìˆ˜ë‹¹ì„ ì¶œë ¥
 SELECT DEPTNO, AVG(COMM)
     FROM EMP
     GROUP BY DEPTNO;
--- NULLÀ» 0À¸·Î Ã³¸®
+-- NULLì„ 0ìœ¼ë¡œ ì²˜ë¦¬
 SELECT DEPTNO, NVL(AVG(COMM), 0)
     FROM EMP
     GROUP BY DEPTNO;
 
--- ºÎ¼­ ÄÚµå, ±Þ¿© ÇÕ°è, ºÎ¼­ Æò±Õ, ºÎ¼­ ÀÎ¿ø¼ö¸¦  ºÎ¼­ÄÚµå ¼øÀ¸·Î Á¤·Ä
-SELECT DEPTNO ºÎ¼­ÄÚµå, SUM(SAL) ±Þ¿©ÇÕ°è, FLOOR(AVG(SAL)) ±Þ¿©Æò±Õ, COUNT(*) ÀÎ¿ø¼ö
+-- ë¶€ì„œ ì½”ë“œ, ê¸‰ì—¬ í•©ê³„, ë¶€ì„œ í‰ê· , ë¶€ì„œ ì¸ì›ìˆ˜ë¥¼  ë¶€ì„œì½”ë“œ ìˆœìœ¼ë¡œ ì •ë ¬
+SELECT DEPTNO ë¶€ì„œì½”ë“œ, SUM(SAL) ê¸‰ì—¬í•©ê³„, FLOOR(AVG(SAL)) ê¸‰ì—¬í‰ê· , COUNT(*) ì¸ì›ìˆ˜
     FROM EMP 
     GROUP BY DEPTNO
     ORDER BY DEPTNO;
     
-/* HAVING Àý : SELECT¹®¿¡ GROUP BY ÀýÀÌ Á¸ÀçÇÒ ¶§¸¸ »ç¿ë °¡´É 
-             : GROUP BYÀýÀ» ÅëÇØ ±×·ìÈ­µÈ °á°ú °ªÀÇ ¹üÀ§¸¦ Á¦ÇÑ½Ã »ç¿ë
+/* HAVING ì ˆ : SELECTë¬¸ì— GROUP BY ì ˆì´ ì¡´ìž¬í•  ë•Œë§Œ ì‚¬ìš© ê°€ëŠ¥ 
+             : GROUP BYì ˆì„ í†µí•´ ê·¸ë£¹í™”ëœ ê²°ê³¼ ê°’ì˜ ë²”ìœ„ë¥¼ ì œí•œì‹œ ì‚¬ìš©
 */
 SELECT DEPTNO, JOB, AVG(SAL)
     FROM EMP
@@ -93,54 +93,54 @@ SELECT DEPTNO, JOB, AVG(SAL)
         HAVING AVG(SAL) >= 2000
     ORDER BY DEPTNO, JOB;
        
--- WHEREÀý°ú HAVINGÀýÀ» ¸ðµÎ »ç¿ëÇÑ °æ¿ì
+-- WHEREì ˆê³¼ HAVINGì ˆì„ ëª¨ë‘ ì‚¬ìš©í•œ ê²½ìš°
 SELECT DEPTNO, JOB, AVG(SAL)
-    FROM EMP                -- Ã¹¹øÂ° ¼öÇà : 12°³ ÇàÀÌ ÀÖÀ½
-    WHERE SAL <= 3000       -- µÎ¹øÂ° ¼öÇà : ÇàÀÌ 11°³·Î Á¦ÇÑÀÌ °É¸° »óÅÂ(SALÀÌ 5000ÀÎ CEO°¡ºüÁü)
+    FROM EMP                -- ì²«ë²ˆì§¸ ìˆ˜í–‰ : 12ê°œ í–‰ì´ ìžˆìŒ
+    WHERE SAL <= 3000       -- ë‘ë²ˆì§¸ ìˆ˜í–‰ : í–‰ì´ 11ê°œë¡œ ì œí•œì´ ê±¸ë¦° ìƒíƒœ(SALì´ 5000ì¸ CEOê°€ë¹ ì§)
     GROUP BY DEPTNO, JOB
         HAVING AVG(SAL) >= 2000
     ORDER BY DEPTNO, JOB;  
     
-/* ¿¬½À¹®Á¦ */    
--- 1. HAVINGÀýÀ» »ç¿ëÇÏ¿© EMP Å×ÀÌºíÀÇ ºÎ¼­º° Á÷Ã¥ÀÇ Æò±Õ ±Þ¿©°¡ 500 ÀÌ»óÀÎ »ç¿øµéÀÇ ºÎ¼­ ¹øÈ£, Á÷Ã¥, ºÎ¼­º° Á÷Ã¥ÀÇ Æò±Õ ±Þ¿©°¡ Ãâ·Â
-SELECT DEPTNO ºÎ¼­¹øÈ£, JOB Á÷Ã¥, AVG(SAL) Æò±Õ±Þ¿©
+/* ì—°ìŠµë¬¸ì œ */    
+-- 1. HAVINGì ˆì„ ì‚¬ìš©í•˜ì—¬ EMP í…Œì´ë¸”ì˜ ë¶€ì„œë³„ ì§ì±…ì˜ í‰ê·  ê¸‰ì—¬ê°€ 500 ì´ìƒì¸ ì‚¬ì›ë“¤ì˜ ë¶€ì„œ ë²ˆí˜¸, ì§ì±…, ë¶€ì„œë³„ ì§ì±…ì˜ í‰ê·  ê¸‰ì—¬ê°€ ì¶œë ¥
+SELECT DEPTNO ë¶€ì„œë²ˆí˜¸, JOB ì§ì±…, AVG(SAL) í‰ê· ê¸‰ì—¬
     FROM EMP
     GROUP BY DEPTNO, JOB
         HAVING AVG(SAL) >= 500
     ORDER BY DEPTNO, JOB; 
     
--- 2. EMP Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¿© ºÎ¼­¹øÈ£, Æò±Õ±Þ¿©, ÃÖ°í±Þ¿©, ÃÖÀú±Þ¿©, »ç¿ø¼ö¸¦ Ãâ·Â,  ´Ü, Æò±Õ ±Þ¿©¸¦ Ãâ·Â ÇÒ ¶§´Â ¼Ò¼öÁ¡ Á¦¿ÜÇÏ°í ºÎ¼­ ¹øÈ£º°·Î Ãâ·Â    
-SELECT DEPTNO ºÎ¼­¹øÈ£, TRUNC(AVG(SAL)) Æò±Õ±Þ¿©, MAX(SAL) ÃÖ°í±Þ¿©, MIN(SAL) ÃÖÀú±Þ¿©, COUNT(*) »ç¿ø¼ö
+-- 2. EMP í…Œì´ë¸”ì„ ì´ìš©í•˜ì—¬ ë¶€ì„œë²ˆí˜¸, í‰ê· ê¸‰ì—¬, ìµœê³ ê¸‰ì—¬, ìµœì €ê¸‰ì—¬, ì‚¬ì›ìˆ˜ë¥¼ ì¶œë ¥,  ë‹¨, í‰ê·  ê¸‰ì—¬ë¥¼ ì¶œë ¥ í•  ë•ŒëŠ” ì†Œìˆ˜ì  ì œì™¸í•˜ê³  ë¶€ì„œ ë²ˆí˜¸ë³„ë¡œ ì¶œë ¥    
+SELECT DEPTNO ë¶€ì„œë²ˆí˜¸, TRUNC(AVG(SAL)) í‰ê· ê¸‰ì—¬, MAX(SAL) ìµœê³ ê¸‰ì—¬, MIN(SAL) ìµœì €ê¸‰ì—¬, COUNT(*) ì‚¬ì›ìˆ˜
     FROM EMP
     GROUP BY DEPTNO
     ORDER BY DEPTNO;
     
--- 3. °°Àº Á÷Ã¥¿¡ Á¾»çÇÏ´Â »ç¿øÀÌ 3¸í ÀÌ»óÀÎ Á÷Ã¥°ú ÀÎ¿ø¸¦ Ãâ·Â
-SELECT JOB Á÷Ã¥, COUNT(*) ÀÎ¿ø
+-- 3. ê°™ì€ ì§ì±…ì— ì¢…ì‚¬í•˜ëŠ” ì‚¬ì›ì´ 3ëª… ì´ìƒì¸ ì§ì±…ê³¼ ì¸ì›ë¥¼ ì¶œë ¥
+SELECT JOB ì§ì±…, COUNT(*) ì¸ì›
     FROM EMP
     GROUP BY JOB
         HAVING COUNT(*) >= 3;    
         
--- 4. »ç¿øµéÀÇ ÀÔ»ç ¿¬µµ¸¦ ±âÁØÀ¸·Î ºÎ¼­º°·Î ¸î ¸íÀÌ ÀÔ»çÇß´ÂÁö Ãâ·Â
-SELECT EXTRACT(YEAR FROM HIREDATE) ÀÔ»çÀÏ, DEPTNO ºÎ¼­¹øÈ£, COUNT(*) »ç¿ø¼ö
+-- 4. ì‚¬ì›ë“¤ì˜ ìž…ì‚¬ ì—°ë„ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¶€ì„œë³„ë¡œ ëª‡ ëª…ì´ ìž…ì‚¬í–ˆëŠ”ì§€ ì¶œë ¥
+SELECT EXTRACT(YEAR FROM HIREDATE) ìž…ì‚¬ì¼, DEPTNO ë¶€ì„œë²ˆí˜¸, COUNT(*) ì‚¬ì›ìˆ˜
     FROM EMP
     GROUP BY DEPTNO, EXTRACT(YEAR FROM HIREDATE)
     ORDER BY COUNT(*);
 
--- 5. Ãß°¡ ¼ö´çÀ» ¹Þ´Â »ç¿ø ¼ö¿Í ¹ÞÁö ¾Ê´Â »ç¿ø¼ö¸¦ Ãâ·Â (O, X·Î Ç¥±â ÇÊ¿ä)
-SELECT NVL2(COMM, 'O', 'X') Ãß°¡¼ö´ç, COUNT(*) »ç¿ø¼ö
+-- 5. ì¶”ê°€ ìˆ˜ë‹¹ì„ ë°›ëŠ” ì‚¬ì› ìˆ˜ì™€ ë°›ì§€ ì•ŠëŠ” ì‚¬ì›ìˆ˜ë¥¼ ì¶œë ¥ (O, Xë¡œ í‘œê¸° í•„ìš”)
+SELECT NVL2(COMM, 'O', 'X') ì¶”ê°€ìˆ˜ë‹¹, COUNT(*) ì‚¬ì›ìˆ˜
     FROM EMP
     GROUP BY NVL2(COMM, 'O', 'X');
 
---6. °¢ ºÎ¼­ÀÇ ÀÔ»ç ¿¬µµº° »ç¿ø ¼ö, ÃÖ°í ±Þ¿©, ±Þ¿© ÇÕ, Æò±Õ ±Þ¿©¸¦ Ãâ·Â
-SELECT DEPTNO, EXTRACT(YEAR FROM HIREDATE) ÀÔ»ç³âµµ, COUNT(*) »ç¿ø¼ö, 
-        MAX(SAL) ÃÖ°í±Þ¿©, TRUNC(AVG(SAL)) Æò±Õ±Þ¿©, SUM(SAL) ±Þ¿©ÇÕ
+--6. ê° ë¶€ì„œì˜ ìž…ì‚¬ ì—°ë„ë³„ ì‚¬ì› ìˆ˜, ìµœê³  ê¸‰ì—¬, ê¸‰ì—¬ í•©, í‰ê·  ê¸‰ì—¬ë¥¼ ì¶œë ¥
+SELECT DEPTNO, EXTRACT(YEAR FROM HIREDATE) ìž…ì‚¬ë…„ë„, COUNT(*) ì‚¬ì›ìˆ˜, 
+        MAX(SAL) ìµœê³ ê¸‰ì—¬, TRUNC(AVG(SAL)) í‰ê· ê¸‰ì—¬, SUM(SAL) ê¸‰ì—¬í•©
         FROM EMP
         GROUP BY DEPTNO, EXTRACT(YEAR FROM HIREDATE);
     
 
--- 2022/02/17 Ãß°¡ 
-/* ROLLUP ÇÔ¼ö¸¦ Àû¿ëÇÑ ±×·ìÈ­ : ¸í½ÃÇÑ ¿­À» ¼Ò±×·ìºÎÅÍ ´ë±×·ìÀÇ ¼ø¼­·Î °¢ ±×·ìº° °á°ú¸¦ Ãâ·ÂÇÏ°í ¸¶Áö¸·¿¡ ÃÑ µ¥ÀÌÅÍ °á°ú¸¦ Ãâ·Â */
+-- 2022/02/17 ì¶”ê°€ 
+/* ROLLUP í•¨ìˆ˜ë¥¼ ì ìš©í•œ ê·¸ë£¹í™” : ëª…ì‹œí•œ ì—´ì„ ì†Œê·¸ë£¹ë¶€í„° ëŒ€ê·¸ë£¹ì˜ ìˆœì„œë¡œ ê° ê·¸ë£¹ë³„ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ê³  ë§ˆì§€ë§‰ì— ì´ ë°ì´í„° ê²°ê³¼ë¥¼ ì¶œë ¥ */
 SELECT deptno, job, COUNT(*), MAX(sal), SUM(sal), AVG(sal)
     FROM EMP
     GROUP BY ROLLUP(deptno, job);
