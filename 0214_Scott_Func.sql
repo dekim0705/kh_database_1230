@@ -1,30 +1,30 @@
-/* 2022/02/14 È­¿äÀÏ */
+/* 2022/02/14 í™”ìš”ì¼ */
 
-/* ÇÔ¼ö¶õ? ¿À¶óÅ¬¿¡¼­´Â ³»Àå ÇÔ¼ö¿Í »ç¿ëÀÚ°¡ ÇÊ¿ä¿¡ ÀÇÇØ¼­ Á÷Á¢ Á¤ÀÇÇÑ »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼ö·Î ³ª´©¾î Áý´Ï´Ù. 
-          ´ÜÀÏÇà ÇÔ¼ö¿Í ´ÙÁßÇà ÇÔ¼ö(Áý°è ÇÔ¼ö)·Î ³ª´©¾î Áý´Ï´Ù. */
+/* í•¨ìˆ˜ëž€? ì˜¤ë¼í´ì—ì„œëŠ” ë‚´ìž¥ í•¨ìˆ˜ì™€ ì‚¬ìš©ìžê°€ í•„ìš”ì— ì˜í•´ì„œ ì§ì ‘ ì •ì˜í•œ ì‚¬ìš©ìž ì •ì˜ í•¨ìˆ˜ë¡œ ë‚˜ëˆ„ì–´ ì§‘ë‹ˆë‹¤. 
+          ë‹¨ì¼í–‰ í•¨ìˆ˜ì™€ ë‹¤ì¤‘í–‰ í•¨ìˆ˜(ì§‘ê³„ í•¨ìˆ˜)ë¡œ ë‚˜ëˆ„ì–´ ì§‘ë‹ˆë‹¤. */
 
-/* DUAL Å×ÀÌºí : SYS°èÁ¤¿¡¼­ Á¦°øÇÏ´Â Å×ÀÌºí·Î ÇÔ¼ö³ª °è»ê½ÄÀ» Å×ÀÌºí ÂüÁ¶ ¾øÀÌ ½ÇÇàÇØº¸±â À§ÇØ FROM Àý¿¡ »ç¿ëÇÏ´Â ´õ¹Ì(DUMMY) Å×ÀÌºí. °¡»ó Å×ÀÌºí */          
+/* DUAL í…Œì´ë¸” : SYSê³„ì •ì—ì„œ ì œê³µí•˜ëŠ” í…Œì´ë¸”ë¡œ í•¨ìˆ˜ë‚˜ ê³„ì‚°ì‹ì„ í…Œì´ë¸” ì°¸ì¡° ì—†ì´ ì‹¤í–‰í•´ë³´ê¸° ìœ„í•´ FROM ì ˆì— ì‚¬ìš©í•˜ëŠ” ë”ë¯¸(DUMMY) í…Œì´ë¸”. ê°€ìƒ í…Œì´ë¸” */          
           
           
-/* ¼ýÀÚ ÇÔ¼ö : ¼öÇÐÀû °è»ê½ÄÀ» Ã³¸®ÇÏ±â À§ÇÑ ÇÔ¼ö¸¦ ÀÇ¹Ì 
+/* ìˆ«ìž í•¨ìˆ˜ : ìˆ˜í•™ì  ê³„ì‚°ì‹ì„ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ í•¨ìˆ˜ë¥¼ ì˜ë¯¸ 
              (ABS, ROUND, TRUNC, MOD, CEIL, FLOOR, POWER) */
 
-/* ABS : Àý´ë°ª ±¸ÇÏ´Â ÇÔ¼ö */
+/* ABS : ì ˆëŒ€ê°’ êµ¬í•˜ëŠ” í•¨ìˆ˜ */
 -- SELECT -10, ABS(10) FROM EMP;
 SELECT -10, ABS(10) FROM DUAL;
 
-/* ROUND : ¹Ý¿Ã¸²ÇÑ °á°ú¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö */
-SELECT ROUND(1234.5678) AS ROUND, -- ¹Ý¿Ã¸² ÀÚ¸®¸¦ ÁöÁ¤ÇÏÁö ¾ÊÀ¸¸é 0À¸·Î ¹Ý¿Ã¸²ÇÑ°Í°ú °°À½(¼Ò¼öÁ¡ ÀÌÇÏ Ã¹¹øÂ° ÀÚ¸®)
+/* ROUND : ë°˜ì˜¬ë¦¼í•œ ê²°ê³¼ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ */
+SELECT ROUND(1234.5678) AS ROUND, -- ë°˜ì˜¬ë¦¼ ìžë¦¬ë¥¼ ì§€ì •í•˜ì§€ ì•Šìœ¼ë©´ 0ìœ¼ë¡œ ë°˜ì˜¬ë¦¼í•œê²ƒê³¼ ê°™ìŒ(ì†Œìˆ˜ì  ì´í•˜ ì²«ë²ˆì§¸ ìžë¦¬)
      ROUND(1234.5678, 0) AS ROUND_0,
      ROUND(1234.5678, 1) AS ROUND_1,
      ROUND(1234.5678, 2) AS ROUND_2,
-     ROUND(1234.5678, 3) AS ROUND_3, -- ¾ç¼öÀÇ ¹üÀ§ ¸¸Å­ ¼Ò¼öÁ¡ ¾Æ·¡·Î ÀÌµ¿ 
+     ROUND(1234.5678, 3) AS ROUND_3, -- ì–‘ìˆ˜ì˜ ë²”ìœ„ ë§Œí¼ ì†Œìˆ˜ì  ì•„ëž˜ë¡œ ì´ë™ 
      ROUND(1234.5678, -1) AS ROUND_MINUS1,
      ROUND(1234.5678, -2) AS ROUND_MINUS2,
      ROUND(1234.5678, -3) AS ROUND_MINUS3
  FROM DUAL;
 
-/* TRUNC : ¹ö¸²À» ÇÑ °á°ú¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö (ROUND¿ÍÀÇ Â÷ÀÌÁ¡Àº 5ÀÌ»óÀÌ¾îµµ ¹ö¸²)*/
+/* TRUNC : ë²„ë¦¼ì„ í•œ ê²°ê³¼ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ (ROUNDì™€ì˜ ì°¨ì´ì ì€ 5ì´ìƒì´ì–´ë„ ë²„ë¦¼)*/
 SELECT TRUNC(1234.5678) AS TRUNC,
      TRUNC(1234.5678, 0) AS TRUNC_0,
      TRUNC(1234.5678, 1) AS TRUNC_1,
@@ -35,81 +35,81 @@ SELECT TRUNC(1234.5678) AS TRUNC,
      TRUNC(1234.5678, -3) AS TRUNC_MINUS3
  FROM DUAL;
 
-/* MOD : ³ª´©±â ÇÑ ÈÄ ³ª¸ÓÁö¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö */
+/* MOD : ë‚˜ëˆ„ê¸° í•œ í›„ ë‚˜ë¨¸ì§€ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ */
 SELECT MOD(21, 5) FROM DUAL;
 
-/* CEIL : ¼Ò¼öÁ¡ ÀÌÇÏ°¡ ÀÖÀ¸¸é ¹«Á¶°Ç ¿Ã¸² */
+/* CEIL : ì†Œìˆ˜ì  ì´í•˜ê°€ ìžˆìœ¼ë©´ ë¬´ì¡°ê±´ ì˜¬ë¦¼ */
 SELECT CEIL(12.001) FROM DUAL; -- 13
 
-/* FLOOR : ¼Ò¼öÁ¡ ÀÌÇÏ¸¦ ¹«Á¶°Ç ³¯¸² */
+/* FLOOR : ì†Œìˆ˜ì  ì´í•˜ë¥¼ ë¬´ì¡°ê±´ ë‚ ë¦¼ */
 SELECT FLOOR(12.999) FROM DUAL; -- 12
 
-/* POWER : Á¤¼öA¸¦ Á¤¼öB¸¸Å­ °öÇÏ´Â ÇÔ¼ö */
+/* POWER : ì •ìˆ˜Aë¥¼ ì •ìˆ˜Bë§Œí¼ ê³±í•˜ëŠ” í•¨ìˆ˜ */
 SELECT POWER(3, 4) FROM DUAL;
 
 
-/* ¹®ÀÚÇÔ¼ö : ¹®ÀÚ µ¥ÀÌÅÍ¸¦ °¡°øÇÏ°Å³ª ¹®ÀÚ µ¥ÀÌÅÍ·Î ºÎÅÍ Æ¯Á¤ °á°ú¸¦ ¾ò°íÀÚ ÇÒ ¶§ »ç¿ëÇÏ´Â ÇÔ¼ö
+/* ë¬¸ìží•¨ìˆ˜ : ë¬¸ìž ë°ì´í„°ë¥¼ ê°€ê³µí•˜ê±°ë‚˜ ë¬¸ìž ë°ì´í„°ë¡œ ë¶€í„° íŠ¹ì • ê²°ê³¼ë¥¼ ì–»ê³ ìž í•  ë•Œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
              (UPPER, LOWER, INITCAP) */
 
-/* UPPER : ´ë¹®ÀÚ·Î º¯°æ */
-/* LOWER : ¼Ò¹®ÀÚ·Î º¯°æ */
-/* INITCAP : Ã¹±ÛÀÚ´Â ´ë¹®ÀÚ·Î º¯°æÇÏ°í ³ª¸ÓÁö´Â ¼Ò¹®ÀÚ·Î º¯°æ */
+/* UPPER : ëŒ€ë¬¸ìžë¡œ ë³€ê²½ */
+/* LOWER : ì†Œë¬¸ìžë¡œ ë³€ê²½ */
+/* INITCAP : ì²«ê¸€ìžëŠ” ëŒ€ë¬¸ìžë¡œ ë³€ê²½í•˜ê³  ë‚˜ë¨¸ì§€ëŠ” ì†Œë¬¸ìžë¡œ ë³€ê²½ */
 SELECT ENAME, UPPER(ENAME), LOWER(ENAME), INITCAP(ENAME)
     FROM EMP;
     
     
--- ¹®ÀÚ ÇÔ¼ö¸¦ WHERE Á¶°ÇÀý¿¡¼­ »ç¿ë
+-- ë¬¸ìž í•¨ìˆ˜ë¥¼ WHERE ì¡°ê±´ì ˆì—ì„œ ì‚¬ìš©
 SELECT *
     FROM EMP
-    WHERE UPPER(ENAME) = UPPER('james'); -- javaÀÇ eualsIsnoreCase¿Í ºñ½ÁÇÑ È¿°ú
+    WHERE UPPER(ENAME) = UPPER('james'); -- javaì˜ eualsIsnoreCaseì™€ ë¹„ìŠ·í•œ íš¨ê³¼
 
--- ¹®ÀÚ ÇÔ¼ö¸¦ LIKEÀý°ú ÇÔ²² »ç¿ë  
+-- ë¬¸ìž í•¨ìˆ˜ë¥¼ LIKEì ˆê³¼ í•¨ê»˜ ì‚¬ìš©  
 SELECT *
     FROM EMP
     WHERE UPPER(ENAME) LIKE UPPER('%ja%'); 
     
 -- INITCAP
-SELECT INITCAP('woo young woo') AS ÀÌ¸§ FROM DUAL;
+SELECT INITCAP('woo young woo') AS ì´ë¦„ FROM DUAL;
 
-/* ¿¬½À¹®Á¦ */
--- »ç¿ø ÀÌ¸§Àº ´ë¹®ÀÚ, Á÷Ã¥Àº Ã¹ÀÚ ´ë¹®ÀÚ ³ª¸ÓÁö´Â ¼Ò¹®ÀÚ·Î º¯°æÇÏ°í ±Þ¿©°¡ ³ôÀº ¼øÀ¸·Î Ãâ·Â
-SELECT UPPER(ENAME) AS ÀÌ¸§, INITCAP(JOB) AS Á÷Ã¥, SAL AS ±Þ¿©
+/* ì—°ìŠµë¬¸ì œ */
+-- ì‚¬ì› ì´ë¦„ì€ ëŒ€ë¬¸ìž, ì§ì±…ì€ ì²«ìž ëŒ€ë¬¸ìž ë‚˜ë¨¸ì§€ëŠ” ì†Œë¬¸ìžë¡œ ë³€ê²½í•˜ê³  ê¸‰ì—¬ê°€ ë†’ì€ ìˆœìœ¼ë¡œ ì¶œë ¥
+SELECT UPPER(ENAME) AS ì´ë¦„, INITCAP(JOB) AS ì§ì±…, SAL AS ê¸‰ì—¬
     FROM EMP
     ORDER BY SAL DESC;
     
-/* LENGTH : ¹®ÀÚ¿­ ±æÀÌ¸¦ ±¸ÇÏ´Â ÇÔ¼ö */    
-SELECT ENAME, LENGTH(ENAME) AS ÀÌ¸§ÀÇ±æÀÌ
+/* LENGTH : ë¬¸ìžì—´ ê¸¸ì´ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜ */    
+SELECT ENAME, LENGTH(ENAME) AS ì´ë¦„ì˜ê¸¸ì´
     FROM EMP;
 
--- ÀÌ¸§ÀÇ ±æÀÌ°¡ 5¿Í °°°Å³ª Å« »ç¿øÀÇ ÀÌ¸§, »ç¿ø¹øÈ£, Á÷Ã¥À» ¿¬ºÀ ¼øÀ¸·Î Ç¥½Ã. ´Ü, º¸³Ê½º Á¦¿Ü
-SELECT ENAME AS ÀÌ¸§, EMPNO AS »ç¿ø¹øÈ£, JOB AS Á÷Ã¥, SAL*12 AS ¿¬ºÀ
+-- ì´ë¦„ì˜ ê¸¸ì´ê°€ 5ì™€ ê°™ê±°ë‚˜ í° ì‚¬ì›ì˜ ì´ë¦„, ì‚¬ì›ë²ˆí˜¸, ì§ì±…ì„ ì—°ë´‰ ìˆœìœ¼ë¡œ í‘œì‹œ. ë‹¨, ë³´ë„ˆìŠ¤ ì œì™¸
+SELECT ENAME AS ì´ë¦„, EMPNO AS ì‚¬ì›ë²ˆí˜¸, JOB AS ì§ì±…, SAL*12 AS ì—°ë´‰
     FROM EMP
     WHERE LENGTH(ENAME) >= 5
-    ORDER BY 4 DESC; -- SAL*12 = ¿¬ºÀ = 4
+    ORDER BY 4 DESC; -- SAL*12 = ì—°ë´‰ = 4
     
 /* LENGTH vs. LENGTHB */
-/* LENGTH  : ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ¹ÝÈ¯  
-   LENGTHB : ¹®ÀÚ¿­ÀÇ ¹ÙÀÌÆ® ¼ö ¹ÝÈ¯ */
-SELECT LENGTH('ÇÑ±Û'), LENGTHB('ÇÑ±Û') -- ¿À¶óÅ¬XE ¹öÀü¿¡¼­ ÇÑ±ÛÀº ÇÑ±ÛÀÚ°¡ 3¹ÙÀÌÆ®. MySQLÀº ÇÑ±ÛÀÚ´ç 1¹ÙÀÌÆ®, µðºñ¸¶´Ù ´Ù¸§   
+/* LENGTH  : ë¬¸ìžì—´ì˜ ê¸¸ì´ë¥¼ ë°˜í™˜  
+   LENGTHB : ë¬¸ìžì—´ì˜ ë°”ì´íŠ¸ ìˆ˜ ë°˜í™˜ */
+SELECT LENGTH('í•œê¸€'), LENGTHB('í•œê¸€') -- ì˜¤ë¼í´XE ë²„ì „ì—ì„œ í•œê¸€ì€ í•œê¸€ìžê°€ 3ë°”ì´íŠ¸. MySQLì€ í•œê¸€ìžë‹¹ 1ë°”ì´íŠ¸, ë””ë¹„ë§ˆë‹¤ ë‹¤ë¦„   
     FROM DUAL;
     
--- Á÷Ã¥ ÀÌ¸§ÀÌ 6±ÛÀÚ ÀÌ»óÀÌ°í COMM ÀÌ ÀÖ´Â »ç¿ø Ãâ·Â
+-- ì§ì±… ì´ë¦„ì´ 6ê¸€ìž ì´ìƒì´ê³  COMM ì´ ìžˆëŠ” ì‚¬ì› ì¶œë ¥
 SELECT *
     FROM EMP
     WHERE LENGTH(JOB) >= 6 
         AND COMM IS NOT NULL 
-        AND COMM != 0; -- (COMM IS NOT NULL OR COMM != 0)·Î °É¸é NOT NULL¿¡¼­ ´Ù ³ª¿À°í ³¡³ª¹ö¸² 
+        AND COMM != 0; -- (COMM IS NOT NULL OR COMM != 0)ë¡œ ê±¸ë©´ NOT NULLì—ì„œ ë‹¤ ë‚˜ì˜¤ê³  ëë‚˜ë²„ë¦¼ 
         
 
 
-/* SUBSTR/SUBSTRB : ´ë»ó ¹®ÀÚ¿­ÀÌ³ª ÄÃ·³ÀÇ ÀÚ·á¿¡¼­ ½ÃÀÛ À§Ä¡ºÎÅÍ ¼±ÅÃ °³¼ö¸¸Å­ÀÇ ¹®ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö. ÀÎµ¦½º °³³ä ¾Æ´Ô
-   SUBSTR  : ¹®ÀÚ¼ö : SUBSTR(¹®ÀÚ¿­µ¥ÀÌÅÍ, ½ÃÀÛÀ§Ä¡, ±æÀÌ)
-   SUBSTRB : ¹ÙÀÌÆ®¼ö : SUBSTRB(¹®ÀÚ¿­µ¥ÀÌÅÍ, ½ÃÀÛÀ§Ä¡)                                                         */    
+/* SUBSTR/SUBSTRB : ëŒ€ìƒ ë¬¸ìžì—´ì´ë‚˜ ì»¬ëŸ¼ì˜ ìžë£Œì—ì„œ ì‹œìž‘ ìœ„ì¹˜ë¶€í„° ì„ íƒ ê°œìˆ˜ë§Œí¼ì˜ ë¬¸ìžë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜. ì¸ë±ìŠ¤ ê°œë… ì•„ë‹˜
+   SUBSTR  : ë¬¸ìžìˆ˜ : SUBSTR(ë¬¸ìžì—´ë°ì´í„°, ì‹œìž‘ìœ„ì¹˜, ê¸¸ì´)
+   SUBSTRB : ë°”ì´íŠ¸ìˆ˜ : SUBSTRB(ë¬¸ìžì—´ë°ì´í„°, ì‹œìž‘ìœ„ì¹˜)                                                         */    
    
 SELECT JOB, SUBSTR(JOB, 1, 2), SUBSTR(JOB, 3, 2), SUBSTR(JOB, 5)
     FROM EMP;
     
--- SUBSTR ÇÔ¼ö¿Í ´Ù¸¥ ÇÔ¼ö ÇÔ²² »ç¿ë
+-- SUBSTR í•¨ìˆ˜ì™€ ë‹¤ë¥¸ í•¨ìˆ˜ í•¨ê»˜ ì‚¬ìš©
 SELECT JOB, 
  SUBSTR(JOB, -LENGTH(JOB)), 
  SUBSTR(JOB, -LENGTH(JOB), 2),
@@ -117,11 +117,11 @@ SELECT JOB,
 FROM EMP;   
 
 
-/* INSTR : ¹®ÀÚ¿­ µ¥ÀÌÅÍ ¾È¿¡ Æ¯Á¤ ¹®ÀÚ³ª ¹®ÀÚ¿­ÀÌ ¾îµð¿¡ Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö ¾Ë°íÀÚ ÇÒ ¶§ »ç¿ë */
-/* INSTR([´ë»ó ¹®ÀÚ¿­ µ¥ÀÌÅÍ(ÇÊ¼ö)],
-    [À§Ä¡¸¦ Ã£À¸·Á´Â ºÎºÐ ¹®ÀÚ(ÇÊ¼ö)],
-    [À§Ä¡ Ã£±â¸¦ ½ÃÀÛÇÒ ´ë»ó ¹®ÀÚ¿­ µ¥ÀÌÅÍ À§Ä¡(¼±ÅÃ, ±âº»°ªÀº 1)],
-    [½ÃÀÛ À§Ä¡¿¡¼­ Ã£À¸·Á´Â ¹®ÀÚ°¡ ¸î ¹øÂ°ÀÎÁö ÁöÁ¤(¼±ÅÃ, ±âº»°ªÀº 1)]) */
+/* INSTR : ë¬¸ìžì—´ ë°ì´í„° ì•ˆì— íŠ¹ì • ë¬¸ìžë‚˜ ë¬¸ìžì—´ì´ ì–´ë””ì— í¬í•¨ë˜ì–´ ìžˆëŠ”ì§€ ì•Œê³ ìž í•  ë•Œ ì‚¬ìš© */
+/* INSTR([ëŒ€ìƒ ë¬¸ìžì—´ ë°ì´í„°(í•„ìˆ˜)],
+    [ìœ„ì¹˜ë¥¼ ì°¾ìœ¼ë ¤ëŠ” ë¶€ë¶„ ë¬¸ìž(í•„ìˆ˜)],
+    [ìœ„ì¹˜ ì°¾ê¸°ë¥¼ ì‹œìž‘í•  ëŒ€ìƒ ë¬¸ìžì—´ ë°ì´í„° ìœ„ì¹˜(ì„ íƒ, ê¸°ë³¸ê°’ì€ 1)],
+    [ì‹œìž‘ ìœ„ì¹˜ì—ì„œ ì°¾ìœ¼ë ¤ëŠ” ë¬¸ìžê°€ ëª‡ ë²ˆì§¸ì¸ì§€ ì§€ì •(ì„ íƒ, ê¸°ë³¸ê°’ì€ 1)]) */
 SELECT INSTR('HELLO, ORACLE!', 'L') AS INSTR_1, -- 3
  INSTR('HELLO, ORACLE!', 'L', 5) AS INSTR_2,    -- 12
  INSTR('HELLO, ORACLE!', 'L', 2, 2) AS INSTR_3  -- 4
