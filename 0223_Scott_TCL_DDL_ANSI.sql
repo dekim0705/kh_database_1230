@@ -1,0 +1,282 @@
+CREATE TABLE dept_tcl 
+    AS SELECT * FROM dept;
+    
+SELECT * FROM dept_tcl;
+
+INSERT INTO dept_tcl VALUES(50, 'DATABASE', 'SEOUL');
+
+UPDATE dept_tcl SET loc = 'BUSAN' 
+    WHERE deptno = 40;
+    
+DELETE FROM dept_tcl WHERE dname = 'RESEARCH';    
+
+COMMIT; -- COMMIT; 하는 순간 영속적으로 바뀜. ROLLBACK 불가. UPDATE 해야 함
+
+
+DESC emp;
+/* 자료형을 정의하여 새로운 테이블 생성 */
+CREATE TABLE emp_ddl (
+    empno       NUMBER(4),
+    ename       VARCHAR2(10),
+    job         VARCHAR2(9),
+    mgr         NUMBER(4),
+    hiredate    DATE,
+    sal         NUMBER(7, 2),
+    comm        NUMBER(7, 2),
+    deptno      NUMBER(2)
+);
+SELECT * FROM emp_ddl;
+
+/* 기존 테이블의 열 구조와 데이터를 복사하여 새 테이블 생성 */
+CREATE TABLE dept_ddl
+    AS SELECT * FROM dept;
+SELECT * FROM dept_ddl;    
+
+
+/* 기존 테이블의 열 구조만 복사하여 새 테이블 생성 */
+CREATE TABLE dept_ddl_tmp
+    AS SELECT * FROM dept
+    WHERE 1 != 1;
+SELECT * FROM dept_ddl_tmp; 
+
+/* */
+CREATE TABLE empdept_ddl
+    AS SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, d.deptno, d.dname, d.loc
+    FROM emp e, dept d
+    WHERE 1 != 1;
+SELECT * FROM empdept_ddl;
+
+/*
+* DDL(데이터 정의어)
+* CREATE : 테이블 생성
+* ALTER  : 테이블 변경 (ADD, RENAME, MODIFY, DROP)
+* RENAME : 테이블 이름 변경
+* TRUNCATE : 테이블의 데이터를 삭제 
+* DROP   : 테이블 삭제
+*/
+
+/* 테이블을 변경하는 ALTER : 테이블에 새 열을 추가 또는 삭제, 열의 자료형의 길이 변경 등을 수행 
+                         : ADD, RENAME, MODIFY, DROP                                    */
+CREATE TABLE EMP_ALTER AS SELECT * FROM EMP;
+SELECT * FROM EMP_ALTER;
+/* ADD : 테이블에 새로운 열을 추가, 추가된 열에 대한 행에는 NULL 값으로 입력 됨 */
+ALTER TABLE EMP_ALTER
+    ADD HP VARCHAR2(20);
+/* RENAME : 열 이름 변경 */ 
+ALTER TABLE EMP_ALTER
+    RENAME COLUMN HP TO TEL;
+/* MODIFY : 열의 자료형 변경 */
+ALTER TABLE EMP_ALTER 
+    MODIFY EMPNO NUMBER(2); -- 변경 불가. 이미 저장되어 있는 데이터의 크기가 2보다 더 큼
+ALTER TABLE EMP_ALTER
+    MODIFY EMPNO NUMBER(5); -- 가능~
+DESC EMP_ALTER;    
+/* DROP : 특정 열 삭제 */
+ALTER TABLE EMP_ALTER
+    DROP COLUMN MGR;
+
+/* RENAME : 테이블 이름 변경 */
+RENAME EMP_ALTER TO EMP_RENAME;
+SELECT * FROM EMP_RENAME;
+
+
+/* TRUNCATE : 테이블의 모든 데이터를 삭제하는 명령. 테이블 구조에 영향을 주지 않으며, ROLLBACK 불가 */
+-- 테이블의 데이터 삭제는 데이터 조작어 중 WHERE절을 명시하지 않은 DELETE문의 수행으로도 가능,
+-- 하지만 TRUNCATE는 데이터 정의어이기 때문에 ROLLBACK이 되지 않음 = 삭제 이후 복구 불가 
+TRUNCATE TABLE EMP_RENAME;
+SELECT * FROM EMP_RENAME;
+
+/* DROP : 테이블 삭제 */
+DROP TABLE EMP_RENAME;
+
+
+
+
+/* 연습문제 */
+DESC EMP_HW;
+SELECT * FROM EMP_HW;
+-- 1. EMP TABLE과 똑같은 열의 구조를 가지는 EMP_HW 테이블 생성
+CREATE TABLE EMP_HW (
+EMPNO    NUMBER(4),
+ENAME    VARCHAR2(10),
+JOB      VARCHAR2(9),
+MGR      NUMBER(4),
+HIREDATE DATE,
+SAL      NUMBER(7, 2),
+COMM     NUMBER(7, 2),
+DEPTNO   NUMBER(2)
+);
+-- 2. EMP_HW 테이블에 BIGO 열을 추가해 보세요. BIGO 열의 자료형은 가변형 문자열이고, 길이는 20입니다.
+ALTER TABLE EMP_HW
+    ADD BIGO VARCHAR2(20);
+-- 3. EMP_HW 테이블의 BIGO 열 크기를 30으로 변경해 보세요.
+ALTER TABLE EMP_HW
+    MODIFY BIGO VARCHAR2(30);
+-- 4. EMP_HW 테이블의 BIGO 열 이름을 REMARK로 변경해 보세요.
+ALTER TABLE EMP_HW
+    RENAME COLUMN BIGO TO REMARK;
+-- 5. EMP_HW 테이블에 EMP 테이블의 데이터를 모두 저장해 보세요. 단 REMAKE 열은 NULL로 삽입합니다.
+INSERT INTO EMP_HW 
+SELECT EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO, NULL
+  FROM EMP;
+-- 6. EMP_HW 테이블 삭제
+DROP TABLE EMP_HW;
+
+
+
+
+/* 제약조건(constraint) : 테이블에 저장할 데이터를 제약하는 특수한 규칙 
+                       : NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, CHECK      */
+                       
+/* NOT NULL : 빈값을 허용하지 않음. 열에 대한 데이터와 중복여부는 상관없고 NULL값을 허용하지 않음 (=반드시 값이 입력 되어야 함) */ 
+CREATE TABLE TABLE_NOTNULL (
+    LOGIN_ID    VARCHAR2(20) NOT NULL,
+    LOGIN_PWD   VARCHAR2(20) NOT NULL,
+    TEL         VARCHAR2(20)
+);
+INSERT INTO TABLE_NOTNULL(LOGIN_ID, LOGIN_PWD, TEL) VALUES('딸기고양이', NULL, '010-1234-1234');
+INSERT INTO TABLE_NOTNULL VALUES('딸기고양이', '1234', '010-1234-1234');
+INSERT INTO TABLE_NOTNULL VALUES('망고멍멍이', '5678', NULL);
+
+/* UNIQUE : 중복되지 않는 값. 열에 저장할 데이터의 중복을 허용하지 않음 */
+CREATE TABLE TABLE_UNIQUE(
+    LOGIN_ID    VARCHAR2(20) UNIQUE,
+    LOGIN_PWD   VARCHAR(20) NOT NULL,
+    TEL         VARCHAR(20)
+);
+INSERT INTO TABLE_UNIQUE VALUES('딸기고양이', '1234', '010-1234-1234');
+INSERT INTO TABLE_UNIQUE VALUES('딸기고양이', '1234', '010-1234-1234'); -- ID중복 X
+INSERT INTO TABLE_UNIQUE VALUES(NULL, '1234', NULL); 
+
+SELECT * FROM TABLE_UNIQUE;
+
+
+
+/* PRIMARY KEY : UNIQUE와 NOT NULL 특성을 모두 가지고 있음 */
+CREATE TABLE TABLE_PK (
+    LOGIN_ID    VARCHAR2(20) PRIMARY KEY, 
+    LOGIN_PWD   VARCHAR(20)  NOT NULL,
+    TELL        VARCHAR2(20)
+);
+INSERT INTO TABLE_PK VALUES('딸기고양이', '1234', '010-1234-1234');
+INSERT INTO TABLE_PK VALUES(NULL, '1234', NULL); -- X
+INSERT INTO TABLE_PK VALUES('망고멍멍이', '1234', NULL); 
+
+SELECT * FROM TABLE_PK;
+
+/* FOREIGN KEY : 서로 다른 테이블간 관계를 정의하는데 사용 */
+CREATE TABLE DEPT_FK(
+    DEPTNO  NUMBER(2) CONSTRAINT DEPTFK_DEPTNO_PK PRIMARY KEY,
+    DNAME   VARCHAR2(14),
+    LOC     VARCHAR2(13)
+);
+DESC DEPT_FK;
+
+CREATE TABLE EMP_FK(
+    EMPNO NUMBER(4) CONSTRAINT EMPFK_EMPNO__PK PRIMARY KEY,
+    ENAME VARCHAR2(10),
+    JOB VARCHAR2(9),
+    MGR NUMBER(4),
+    HIREDATE DATE,
+    SAL NUMBER(7, 2),
+    COMM NUMBER(7, 2),
+    DEPTNO NUMBER(2) CONSTRAINT EMPFK_DEPTNO_FK REFERENCES DEPT_FK(DEPTNO)
+);
+DESC EMP_FK;
+-- 10번 부서가 없는 상태, FK와 연결되어있는 DEPT_FK의 PK가 없음
+INSERT INTO EMP_FK VALUES(9999, '쁨벙이', 'AI', NULL, SYSDATE, 3000, NULL, 10);
+-- DEPT_FK 만들기
+INSERT INTO DEPT_FK VALUES(10, '끝말잇기', '인공지능');
+INSERT INTO EMP_FK VALUES(9999, '쁨벙이', 'AI', NULL, SYSDATE, 3000, NULL, 10);
+
+-- 데이터 삭제에도 적용
+DELETE FROM DEPT_FK WHERE DEPTNO = 10; -- X
+DELETE FROM EMP_FK WHERE DEPTNO = 10;
+DELETE FROM DEPT_FK WHERE DEPTNO = 10; -- O
+
+/* CHECK : 데이터 형태와 범위를 정함 */
+CREATE TABLE TABLE_CHECK(
+    LOGIN_ID    VARCHAR2(20) CONSTRAINT TBLCK_LOGINID_PK PRIMARY KEY,
+    LOGIN_PWD   VARCHAR2(20) CONSTRAINT TBLCK_LOGINPW_CK CHECK (LENGTH(LOGIN_PWD) > 3),
+    TEL         VARCHAR2(20)
+);    
+INSERT INTO TABLE_CHECK VALUES('딸기고양이', '123', '123-123-123'); -- X 비밀번호 길이 CHECK
+INSERT INTO TABLE_CHECK VALUES('딸기고양이', '1234', '123-123-123');
+
+/* CHECK 제약 조건 확인 */
+SELECT OWNER, CONSTRAINT_NAME, CONSTRAINT_TYPE, TABLE_NAME
+    FROM USER_CONSTRAINTS
+    WHERE TABLE_NAME LIKE 'TABLE_CHECK';
+    
+/* DEFAULT : 제약 조건과는 별개로 특정 열에 저장할 값이 지정되지 않았을 경우에 기본값 지정 */
+-- 기본값을 지정하는건 제약조건이 아니기때문에 CONSTRAINT넣으면 안됨..
+CREATE TABLE TABLE_DEFAULT(
+    LOGIN_ID    VARCHAR2(20) CONSTRAINT TBLCK2_LOGINID_PK PRIMARY KEY,
+    LOGIN_PWD   VARCHAR2(20) DEFAULT '1234',
+    TEL         VARCHAR2(20)
+);
+INSERT INTO TABLE_DEFAULT VALUES('딸기고양이', NULL, '123-123-123'); -- NULL 하면 NULL로 들어감! 기본값 안들어감! 
+INSERT INTO TABLE_DEFAULT VALUES('망고멍멍이', '5678', '123-123-124');
+SELECT * FROM TABLE_DEFAULT;
+INSERT INTO TABLE_DEFAULT VALUES('뿅뿅병아리', DEFAULT, '123-123-123');
+INSERT INTO TABLE_DEFAULT (LOGIN_ID, TEL) VALUES('딸기고양이2', '123-123-123');
+
+    
+
+
+CREATE TABLE PRODUCT(
+PRODUCT_ID     NUMBER  PRIMARY KEY,
+PRODUCT_NAME   VARCHAR2(20) NOT NULL,
+REG_DATE       DATE
+);
+
+INSERT INTO PRODUCT VALUES(1, 'Computer', '2021/01/12');
+INSERT INTO PRODUCT VALUES(2, 'Smartphone', '2022/02/03');
+INSERT INTO PRODUCT VALUES(3, 'Television', '2022/07/01');
+
+ALTER TABLE PRODUCT
+    ADD WEIGHT NUMBER CHECK (WEIGHT>=0);
+ALTER TABLE PRODUCT
+    ADD PRICE NUMBER CHECK (PRICE>=0);
+
+SELECT * FROM PRODUCT;
+
+UPDATE PRODUCT
+    SET WEIGHT = 100,
+        PRICE = 200
+    WHERE PRODUCT_NAME = 'Computer';    
+
+
+
+CREATE TABLE CUSTOMER(
+CUSTOM_ID   NUMBER  PRIMARY KEY,
+USER_NAME   VARCHAR(12) NOT NULL,
+PHONE       VARCHAR(20),
+EMAIL       VARCHAR(20),
+REG_DATE    DATE DEFAULT('1900/01/01')
+);
+
+ALTER TABLE CUSTOMER
+    ADD AGE NUMBER CHECK (AGE > 0 AND AGE < 200);
+ALTER TABLE CUSTOMER
+    ADD SEX VARCHAR2(1) CHECK (SEX = 'M' OR SEX = 'F');
+ALTER TABLE CUSTOMER
+    ADD BIRTH_DATE DATE;
+    
+DESC CUSTOMER;    
+
+ALTER TABLE CUSTOMER
+    MODIFY PHONE UNIQUE
+    MODIFY EMAIL UNIQUE;
+    
+    
+ALTER TABLE CUSTOMER
+    RENAME COLUMN SEX TO GENDER;
+
+ALTER TABLE CUSTOMER
+    RENAME COLUMN PHONE TO MOBILE;
+ALTER TABLE CUSTOMER    
+    MODIFY USER_NAME VARCHAR2(20);
+    
+INSERT INTO CUSTOMER VALUES(1, '딸기고양이', '010-123-123', 'strawberry@com', DEFAULT, 2, 'F', SYSDATE);
+SELECT * FROM CUSTOMER;
